@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}ClassPulse AI{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body><header class="topbar"><a class="brand" href="{{ url_for('dashboard') }}"><span class="logo">CP</span><span>ClassPulse <b>AI</b><small>Multimodal Attendance & Engagement</small></span></a>
+<nav><a href="{{ url_for('dashboard') }}">Dashboard</a><a href="{{ url_for('students') }}">Students</a><a href="{{ url_for('attendance') }}">Attendance</a><a href="{{ url_for('engagement') }}">Engagement</a><a href="{{ url_for('about') }}">About</a></nav></header>
+<main class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flashes">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}</main><footer>ClassPulse AI · Local demo · Verify attendance manually when uncertain</footer>
+<script>
+async function requestJSON(url, body) { const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); const d=await r.json(); return {ok:r.ok,...d}; }
+function getFrame(video, canvas) { canvas.width=video.videoWidth; canvas.height=video.videoHeight; canvas.getContext('2d').drawImage(video,0,0); return canvas.toDataURL('image/jpeg',0.88); }
+</script>{% block scripts %}{% endblock %}</body></html>
